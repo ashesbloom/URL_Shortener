@@ -1,0 +1,22 @@
+{
+  "name": "url_shortener",
+  "version": "1.0.0",
+  "description": "script_runner",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "ashesbloom"
+  },
+  "author": "Mayank_Pandey",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.19.2",
+    "mongoose": "^8.3.0",
+    "nanoid": "^5.0.7",
+    "nodemon": "^3.1.0",
+    "shortid": "^2.2.16"
+  }
+}
