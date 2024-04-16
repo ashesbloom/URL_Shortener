@@ -2,19 +2,17 @@ const mongo = require('mongoose');
 
 //schema
 const urlschema = new mongo.Schema({
-    urlId:{
+    shortId:{
         type:String,
-        require: true,
+        required: true,
         unique:true
     },
-    redirectUrl:{
+    redirectURL:{
         type:String,
-        require:true
+        required:true
     },
-    visitTime: [{
-        timestamp:{type:Number}
-    }]
-},{timestamp:true});
+    visitTime: [{timestamp:{type:Number}}],
+},{timestamps:true});
 
 //model
 const Url = mongo.model('url',urlschema);
