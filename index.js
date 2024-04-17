@@ -20,7 +20,7 @@ app.get("/:shortId", async(req, res) => {
     const shortId = req.params.shortId;
     const entry = await URL.findOneAndUpdate(
       {
-        shortId  //if changing it to shortid and same on the prams variable its is not working 
+        shortId  
       },
       {
         $push: {

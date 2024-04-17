@@ -15,6 +15,23 @@ async function GenrateShortUrl(req,res){
     return res.json({id: shortId});
 }
 
+async function handleAdmin(req,res){
+    const result = await URL.find({});
+    const formattedData = result.map(item => `Orignal URL: ${item.redirectURL} _________ Short ID: ${item.shortId}`);
+        
+    res.json(formattedData);
+}
+
+async function handleAdminClicks(req,res){
+    const shortId = req.params.id;
+    const result = await URL.findOne({shortId});
+    
+    return res.json({Totalclicks:result.visitTime.length,});
+}
+
+
 module.exports = {
     GenrateShortUrl,
+    handleAdminClicks,
+    handleAdmin
 }
