@@ -1,5 +1,6 @@
 const shortid = require('shortid');
 const URL = require('../models/url');
+const port = require('../index.js').port;
 
 //controllers
 
@@ -14,14 +15,16 @@ async function GenrateShortUrl(req,res){  // /url
         visitTime: [],
     });
 
-    return res.json({id: shortId}); //returning the shortID
+    return res.render('home',{
+        id: shortId, //returning the shortID
+        port:port
+    });
 }
 
 async function handleAdmin(req,res){ // /url/admin
     const result = await URL.find({}); //getting all the entries from the database
     const formattedData = result.map(item => `Orignal URL: ${item.redirectURL} _________ Short ID: ${item.shortId}`); //formatting the data
-        
-    res.json(formattedData);
+    return res.json(formattedData);
 }
 
 async function handleAdminClicks(req,res){ // /url/admin/:id
