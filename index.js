@@ -14,7 +14,7 @@ connectDatabase('mongodb://localhost:27017/url-shortner')
 //middleware
 app.use(express.json());  //to create a object on json post request
 
-app.use('/url',urlroutes); //using the url routes
+app.use('/url',urlroutes); 
 
 //listening to the server
 app.listen(port,()=>{console.log('\nServer started at PORT:',port)});
