@@ -1,6 +1,6 @@
 const shortid = require('shortid');
 const URL = require('../models/url');
-const port = require('../index.js').port;
+const port = require('../index.js');
 
 //controllers
 
@@ -17,7 +17,7 @@ async function GenrateShortUrl(req,res){  // /url
 
     return res.render('home',{
         id: shortId, //returning the shortID
-        port:port
+        data: await URL.find({}) //returning all the entries from the database
     });
 }
 
@@ -55,5 +55,5 @@ module.exports = { //exporting the controllers
     GenrateShortUrl,
     handleAdminClicks,
     handleAdmin,
-    redirecting_to_originalURL
+    redirecting_to_originalURL,
 }

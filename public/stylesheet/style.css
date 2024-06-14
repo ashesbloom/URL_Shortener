@@ -1,0 +1,115 @@
+body {
+    background-color:darkslategray;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    transition: 0.5s;
+}
+h1 {
+    color: white;
+    text-align: center;
+    animation: fadeIn 1.3s ease-in-out;
+}
+@keyframes fadeIn {
+    from { color:#83b884; }
+    to { color: white; }
+}
+form {
+    color: white;
+    text-align: center;
+    margin-top: 2vh;
+    
+}
+lable{
+    font-size: 19px;
+}
+input {
+    width: 25%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    box-sizing: border-box;
+    border-radius: 10px;
+}
+#submit, #reset {
+    background-color: #4CAF50;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 8px;
+    border: none;
+    cursor: pointer;
+    /* border: 1px solid whitesmoke; */
+    border-radius: 10px;
+}
+#reset {
+    margin-left: 0;
+    background-color: #9d1f16;
+}
+#shorturl {
+    font-size: 20px;
+    color: white;
+    text-align: center;
+    margin-top: 2vh;
+    transition: 0.5s;
+}
+#shorturl a {
+    color:darkturquoise;
+    text-decoration: none;
+    text-decoration:underline;
+    transform: scale(1.1);
+}
+#short_url{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 2vh;
+}
+#copy{
+    /* background-color: #4CAF50; */
+    color: #86f689;
+    padding: 9px 8px;
+    margin: 5px 0 0 0;
+    border: none;
+    cursor: pointer;
+    border-radius: 12px;
+    transition: 0.2s;
+}
+#copy:hover{
+    background-color: #4CAF50;
+    color: white;
+}
+
+#copy:active{
+    background-color: #86f689;
+    color: #4CAF50;
+}
+#copy:visited{
+    background-color: #86f689;
+    color: #4CAF50;
+}
+.msg{
+    color: white;
+    font-family:monospace;
+    margin-left: 5px;
+    font-size: 20px;
+    transform: scale(1.2);
+    transition: 1s;
+    display: none;
+}
+#ani{
+    animation: fadeIn 1.3s ease-in-out;
+    color: lightgreen;
+}
+.table{
+    display:flex;
+    justify-content: center;
+    padding: 5px;
+    margin-top: 2vh;
+    /* border-collapse: collapse; */
+    /* width: 100%; */
+    color: white;
+    font-family: monospace;
+    font-size: 25px;
+    text-align: left;
+}
+table{
+    border-collapse: collapse;
+    width: 100%;
+}
