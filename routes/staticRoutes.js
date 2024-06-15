@@ -5,11 +5,19 @@ const URL = require('../models/url');
 
 
 
-router.get('/', async(req,res)=>{
+router.get('/home/:userName', async(req,res)=>{
     const url =  await URL.find({});
     res.render('home',{
        data: url
     });
 }); 
+
+router.get('/signup',async(req,res)=>{
+   res.render('signup'); 
+});
+
+router.get('/signin',async(req,res)=>{
+    res.render('signin');
+});
 
 module.exports = router;

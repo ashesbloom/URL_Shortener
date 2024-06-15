@@ -5,6 +5,7 @@ const port = 8001;
 const URL = require('./models/url.js');
 const urlroutes = require('./routes/urlRoutes.js');
 const staticRoutes = require('./routes/staticRoutes.js');
+const userRoutes = require('./routes/users.js');
 const { connectDatabase } = require('./connection.js'); 
 const exp = require('constants');
 
@@ -27,6 +28,8 @@ app.use(express.urlencoded({extended:false})); //to create a object on form inpu
 //routes
 app.use('/ashes',urlroutes); //using the url routes
 app.use('/',staticRoutes); //using the static routes
+app.use('/user',userRoutes); //using the users routes
 
 //listening to the server
 app.listen(port,()=>{console.log('\nServer started at PORT:',port)});
+
