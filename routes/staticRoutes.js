@@ -5,10 +5,15 @@ const URL = require('../models/url');
 
 
 
-router.get('/home/:userName', async(req,res)=>{
-    const url =  await URL.find({});
+router.get('/home', async(req,res)=>{
+    if(!req.user) return res.render('home',{
+        isUser: false
+    });
+    const url =  await URL.find({createdBy:req.user._id});
     res.render('home',{
-       data: url
+       data: url,
+       userName: await req.user.name,
+       isUser: true
     });
 }); 
 

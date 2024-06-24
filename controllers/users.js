@@ -1,32 +1,31 @@
 const users = require('../models/users');
+const {setUser} = require('../service/auth.js');
 
 async function handleUsers_SighUp(req,res){
     const {name , email , password} = req.body;
     await users.create({
         name,
         email,
-        password
+        password,
+        role: 'USER'
     });
-    return res.redirect('/home/'+name);
+    return res.redirect('/signin');
 }
-
 
 async function handleUsers_SignIn(req,res){
     const {email,password} = req.body;
     const isUser = await users.findOne({email,password});
     if(isUser){
-        res.redirect('/home/'+isUser.name);
+        const token = setUser(isUser);
+        res.cookie("token",token);
+        res.redirect('/home');
     }else{
-        return res.render('signin',{
-            error:'Invalid! email or password'
-        });
+        return res.redirect('/signin');
     }
+    
 }
 
 
-// async function userHomepage(req,res){
-//     return res.render('home');
-// }
 module.exports = {
     handleUsers_SighUp,
     handleUsers_SignIn,

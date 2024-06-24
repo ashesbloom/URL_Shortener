@@ -16,6 +16,11 @@ const userschema = new mongo.Schema({
     password:{
         type:String,
         required:true
+    },
+    role:{
+        type:String,
+        default:'USER',
+        required:true
     }
 },{ timestamps:true });
 

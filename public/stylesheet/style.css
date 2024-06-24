@@ -113,3 +113,31 @@ table{
     border-collapse: collapse;
     width: 100%;
 }
+@media only screen and (max-width: 600px) {
+    lable{
+        display: flex;
+        align-self: start;
+        margin-left: 5vh;
+    }
+    input {
+        width: 80%;
+    }
+
+    #submit, #reset {
+        width: 40%;
+        padding: 12px;
+        margin: 10px 0;
+    }
+
+    .table {
+        display: flex;
+        justify-content: center;
+        padding: 5px;
+        margin-top: 2vh;
+        flex-direction: column;
+        font-size: 13px;
+        white-space:auto;
+        overflow-x: auto;
+        font-size: 13px;
+    }
+}

@@ -1,3 +1,4 @@
+const { default: mongoose } = require('mongoose');
 const mongo = require('mongoose');
 
 //schema
@@ -12,6 +13,11 @@ const urlschema = new mongo.Schema({
         required:true
     },
     visitTime: [{timestamp:{type:Number}}],
+
+    createdBy:{
+        type: mongoose.Schema.Types.ObjectId,
+        ref: 'users',
+    },
 },{timestamps:true});
 
 //model

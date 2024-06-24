@@ -1,37 +1,50 @@
 const shortid = require('shortid');
 const URL = require('../models/url');
-const port = require('../index.js');
+const Users = require('../models/users.js'); 
+const users = require('../models/users.js');
+const Url = require('../models/url');
 
 //controllers
-
 async function GenrateShortUrl(req,res){  // /url
     const body = req.body; //getting the body from the request
-    if(!body.url) return res.status(400).json({error:'url is required'}) //checking if the url is present in the body
+    if(!body.url) return res.status(400).json({error:'URL is required!'});  //checking if the url is present in the body
     const shortId = shortid(); //generating a shortID
 
     await URL.create({ //filling a new entry in the database
         shortId: shortId,
         redirectURL:body.url,
+        createdBy: req.user._id,
         visitTime: [],
     });
-
+    const urls = await URL.find({createdBy:req.user._id}); 
     return res.render('home',{
         id: shortId, //returning the shortID
-        data: await URL.find({}) //returning all the entries from the database
+        data:urls,
+        isUser: true,
+        userName: await req.name
     });
 }
 
 async function handleAdmin(req,res){ // /url/admin
     const result = await URL.find({}); //getting all the entries from the database
-    const formattedData = result.map(item => `Orignal URL: ${item.redirectURL} _________ Short ID: ${item.shortId}`); //formatting the data
+    const users = await Users.find({ _id: { $in: result.map(item => item.createdBy) } });
+    const formattedData = result.map(item => `Orignal URL: ${item.redirectURL} _________ Short ID: 
+        ${item.shortId} _________ Created By: ${users.find(user => user._id.toString() === item.createdBy.toString()).name}`);
     return res.json(formattedData);
 }
 
 async function handleAdminClicks(req,res){ // /url/admin/:id
     const shortId = req.params.id; //getting the shortID from the URL
     const result = await URL.findOne({shortId}); //searching for the shortID in the database
-    
-    return res.json({Totalclicks:result.visitTime.length,}); //returning the total clicks on the short URL
+    const createdBy = result.createdBy;
+    const user = await Users.findOne(createdBy);
+    return res.json({
+        Url: result.redirectURL,
+        Totalclicks: result.visitTime.length,
+        createdBy: user.name,
+        email: user.email,
+        role: user.role
+    });
 }
 
 async function redirecting_to_originalURL(req,res){ // /url/:shortID
