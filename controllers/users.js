@@ -25,8 +25,14 @@ async function handleUsers_SignIn(req,res){
     
 }
 
+function handleUser_logout(req,res){
+    res.clearCookie('token');
+    res.json({ message: 'Logged out successfully', redirect: '/signin' });
+}
+
 
 module.exports = {
     handleUsers_SighUp,
     handleUsers_SignIn,
+    handleUser_logout
 }

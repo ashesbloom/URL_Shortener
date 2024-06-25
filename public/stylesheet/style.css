@@ -12,7 +12,7 @@ h1 {
     from { color:#83b884; }
     to { color: white; }
 }
-form {
+#url_input {
     color: white;
     text-align: center;
     margin-top: 2vh;
