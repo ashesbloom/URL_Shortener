@@ -22,10 +22,10 @@
         <button id="submit" type="submit">Shorten</button>
         <button id="reset" type="button" onclick="window.location.href = '/home'">Reset</button>
     </form>
-    <br>
     <% if (locals.id) { %>
         <div id="short_url">
-            <span id="shorturl">Shorten URL:&nbsp;<a href="/ashes/<%= id%>" target="_blank" id="copy_text">http://localhost:8001/ashes/<%= id%></a></span>
+            <span id="shorturlHeading">Shorten URL:&nbsp;</span>
+            <span id="shortenUrl"><a href="/ashes/<%= id%>" target="_blank" id="copy_text">http://localhost:8001/ashes/<%= id%></a></span>
             <span class="fa-regular fa-copy" id="copy" title="Copy"></span>
             <span class="msg">copied<span id="ani">!</span></span>
         </div>

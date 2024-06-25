@@ -20,7 +20,7 @@ async function GenrateShortUrl(req,res){  // /url
         id: shortId, //returning the shortID
         data:urls,
         isUser: true,
-        userName: await req.name
+        userName: req.user.name
     });
 }
 

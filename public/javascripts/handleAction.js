@@ -35,5 +35,4 @@ async function handle_ClearData(url) {
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('logout').addEventListener('click', () => handleAction('/user/logout'));
     document.getElementById('clear').addEventListener('click', () => handle_ClearData('/ashes/delete'));
-    document.getElementById('signinForm').addEventListener('click', () => handleAction('/user/login'));
 });

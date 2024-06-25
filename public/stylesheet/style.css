@@ -42,24 +42,24 @@ input {
     margin-left: 0;
     background-color: #9d1f16;
 }
-#shorturl {
+#short_url{
+    color: white;
+    font-size: 20px;
+    text-align: center;
+    margin-top: 2vh;
+}
+#shorturlHeading{
     font-size: 20px;
     color: white;
     text-align: center;
     margin-top: 2vh;
     transition: 0.5s;
 }
-#shorturl a {
+#shortenUrl a {
     color:darkturquoise;
     text-decoration: none;
     text-decoration:underline;
     transform: scale(1.1);
-}
-#short_url{
-    color: white;
-    font-size: 20px;
-    text-align: center;
-    margin-top: 2vh;
 }
 #copy{
     /* background-color: #4CAF50; */
@@ -139,5 +139,37 @@ table{
         white-space:auto;
         overflow-x: auto;
         font-size: 13px;
+    }
+    #short_url{
+        /* display:flex; */
+        /* margin-left: 10px; */
+        width: 100%;
+        color: white;
+    }
+    #shorturlHeading {
+        display:flex;
+        text-align: start;
+        margin-left: 2.5vh;
+        font-size: 20px;
+        color: white;
+        transition: 0.5s;
+    }
+    #shortenUrl a {
+        color: white;
+        text-align: center;
+        font-size: 18px;
+        color:darkturquoise;
+        text-decoration: none;
+        text-decoration:underline;
+        transform: scale(1.1);
+    }
+    .msg{
+        color: white;
+        font-family:monospace;
+        margin-left: 5px;
+        font-size: 15px;
+        transform: scale(1.2);
+        transition: 1s;
+        display: none;
     }
 }
