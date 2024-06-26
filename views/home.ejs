@@ -3,16 +3,16 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>URL Shortner</title>
+    <title>URL Shortener</title>
     <script src="https://kit.fontawesome.com/6a0ad01ab5.js" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/stylesheet/style.css">
+    <link rel="stylesheet" href="/stylesheets/homeStyle.css">
     <script src="/javascripts/handleAction.js"></script>
     <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
 </head>
 <body>
-    <h1>URL Shortner</h1>
-    <% if (locals.isUser) { %>
-        <h1><%= userName %></h1>
+    <h1 id="headings">URL Shortener</h1>
+    <% if (locals.role) { %>
+        <h1 id="headings"><%= userName %></h1>
     <% } %>
     <hr>
     <br>
@@ -32,9 +32,9 @@
     <% } %>
     <br>
     <hr>
-    <% if (locals.isUser) { %>
+    <% if (locals.role) { %>
         <button id="logout" type="submit">logout</button>
-        <button id="clear" type="submit">Clear All</button>
+        <button id="clear" type="submit">Clear History</button>
         <div class="table">
             <% if (locals.data) { %>
                 <table border="1px">
@@ -51,6 +51,36 @@
                                 <td><%= e.shortId %></td>
                                 <td><%= e.redirectURL %></td>
                                 <td><%= e.visitTime.length %></td>
+                            </tr>
+                        <% }) %>
+                    </tbody>
+                </table>
+            <% } %>
+        </div>
+    <% } %>
+    <% if (locals.role === 'ADMIN') { %>
+        <h3 id="headings">User Recordes</h3>
+        <button id="allUser" type="button" onclick="window.location.href='/admin/allusers'">All Users</button>
+        <div class="table">
+            <% if (locals.allurls) { %>
+                <table border="1px">
+                    <thead>
+                        <th>S.No</th>
+                        <th>ID</th>
+                        <th>Original URL</th>
+                        <th>Created By</th>
+                        <th>Statistics</th>
+                    </thead>
+                    <tbody>
+                        <% allurls.forEach((e,index) => { %>
+                            <tr>
+                                <td><%= index+1 %></td>
+                                <td><%= e.shortId %></td>
+                                <td><%= e.redirectURL %></td>
+                                <td><%= e.createdBy %></td>
+                                <td>
+                                    <button id="open" type="submit" onclick="window.location.href = '/admin/statistics/<%= e.shortId %>'">open</button>
+                                </td>
                             </tr>
                         <% }) %>
                     </tbody>

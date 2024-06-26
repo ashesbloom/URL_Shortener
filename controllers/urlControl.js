@@ -1,6 +1,7 @@
 const shortid = require('shortid');
-const URL = require('../models/url');
-const Users = require('../models/users.js'); 
+const URL = require('../models/url.js');
+
+const users = require('../models/users.js');
 
 
 //controllers
@@ -19,7 +20,7 @@ async function GenrateShortUrl(req,res){  // /url
     return res.render('home',{
         id: shortId, //returning the shortID
         data:urls,
-        isUser: true,
+        role:req.user.role,
         userName: req.user.name
     });
 }
@@ -57,33 +58,8 @@ async function ClearData(req,res){
     
 }
 
-async function handleAdmin(req,res){ // /url/admin
-    const result = await URL.find({}); //getting all the entries from the database
-    const users = await Users.find({ _id: { $in: result.map(item => item.createdBy) } });
-    const formattedData = result.map(item => `Orignal URL: ${item.redirectURL} _________ Short ID: ${item.shortId} _________ Created By: ${users.find(user => user._id.toString() === item.createdBy.toString()).name}`);
-    return res.json(formattedData);
-}
-
-async function handleAdminClicks(req,res){ // /url/admin/:id
-    const shortId = req.params.id; //getting the shortID from the URL
-    const result = await URL.findOne({shortId}); //searching for the shortID in the database
-    const createdBy = result.createdBy;
-    const user = await Users.findOne(createdBy);
-    return res.json({
-        Url: result.redirectURL,
-        Totalclicks: result.visitTime.length,
-        createdBy: user.name,
-        email: user.email,
-        role: user.role
-    });
-}
-
-
-
 module.exports = { //exporting the controllers
     GenrateShortUrl,
-    handleAdminClicks,
-    handleAdmin,
     redirecting_to_originalURL,
     ClearData
 }

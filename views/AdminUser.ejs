@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin - All Users</title>
+    <link rel="stylesheet" href="/styles/admin.css">
+    <link rel="stylesheet" href="/stylesheets/adminStyle.css">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="/javascripts/handleAction.js"></script>
+</head>
+<body class="bodyOfUser">
+    <div class="container_users">
+        <h1 class="heading">All Users</h1>
+        <table>
+            <thead>
+                <tr>
+                    <th>Name</th>
+                    <th>Email</th>
+                    <th>Role</th>
+                    <th>Created At</th>
+                    <th>Action</th>
+                </tr>
+            </thead>
+            <tbody>
+                <% formattedData.forEach(user => { %>
+                    <tr>
+                        <td><%= user.userName %></td>
+                        <td><%= user.email %></td>
+                        <td class="role"><%= user.role %></td>
+                        <td><%= user.createdAt %></td>
+                        <td><button id="delete" type="button" onclick="handle_Userdelete('/admin/delete','<%= user.email %>')">Delete User</button></td>
+                    </tr>
+                <% }) %>
+            </tbody>
+        </table>
+    </div>
+</body>
+</html>

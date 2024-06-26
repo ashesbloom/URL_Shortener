@@ -1,6 +1,6 @@
 const express = require('express');
 const router = express.Router();
-const {handleUsers_SighUp,handleUsers_SignIn,handleUser_logout} = require('../controllers/users');
+const {handleUsers_SighUp,handleUsers_SignIn,handleUser_logout} = require('../controllers/userControl');
 
 router.post('/',handleUsers_SighUp);
 router.post('/login',handleUsers_SignIn);

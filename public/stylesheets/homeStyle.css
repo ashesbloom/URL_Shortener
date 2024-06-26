@@ -3,7 +3,7 @@ body {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     transition: 0.5s;
 }
-h1 {
+#headings{
     color: white;
     text-align: center;
     animation: fadeIn 1.3s ease-in-out;

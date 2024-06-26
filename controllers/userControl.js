@@ -1,4 +1,4 @@
-const users = require('../models/users');
+const users = require('../models/users.js');
 const {setUser} = require('../service/auth.js');
 
 async function handleUsers_SighUp(req,res){
@@ -8,8 +8,15 @@ async function handleUsers_SighUp(req,res){
         email,
         password,
         role: 'USER'
-    });
-    return res.redirect('/signin');
+        });
+    const isUser = await users.findOne({email,password});
+    if(isUser){
+        const token = setUser(isUser);
+        res.cookie("token",token);
+        return res.redirect('/home');
+    }else{
+        return res.redirect('/signin');
+    }
 }
 
 async function handleUsers_SignIn(req,res){
@@ -18,7 +25,7 @@ async function handleUsers_SignIn(req,res){
     if(isUser){
         const token = setUser(isUser);
         res.cookie("token",token);
-        res.redirect('/home');
+        return res.redirect('/home');
     }else{
         return res.redirect('/signin');
     }

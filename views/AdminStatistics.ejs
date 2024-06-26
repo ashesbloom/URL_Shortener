@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <title>URL Shortener</title>
+    <link rel="stylesheet" href="/stylesheets/adminStyle.css">
+    <script src="/javascripts/handleAction.js"></script>
+</head>
+<body class="bodyOfStatistic">
+    <div class="container">
+        <h1>User Details</h1>
+        <p><strong>URL: </strong> <%= Url %><br><strong>Short ID: </strong><%= shortid %></p>
+        <p><strong>Total Clicks: </strong> <%= Totalclicks %></p>
+        <p><strong>Created By: </strong> <%= createdBy %></p>
+        <p><strong>Email: </strong> <%= email %></p>
+        <p><strong>Role: </strong> <%= role %></p>
+        <button id="delete" type="button" onclick="handle_Userdelete('/admin/delete','<%= email %>')">Delete User</button>
+    </div>
+</body>
+</html>

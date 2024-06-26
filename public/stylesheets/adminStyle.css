@@ -1,0 +1,74 @@
+.bodyOfStatistic {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 20px;
+    background-color: #f4f4f4;
+}
+.bodyOfUser {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+.container {
+    max-width: 600px;
+    margin: auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+}
+h1 {
+    margin-left: 2px;
+    margin-top: 2px;
+}
+p {
+    margin-left: 10px;
+    line-height: 1.6;
+    overflow: hidden;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    word-break: break-all;
+}
+.container button {
+    background-color:brown;
+    color: white;
+    padding: 10px 20px;
+    margin: 10px 0;
+    border: none;
+    cursor: pointer;
+    width: 100%;
+    border-radius: 25px;
+}
+.container_users{
+    width: 80%;
+    margin: 50px auto;
+    background-color: #fff;
+    padding: 20px;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    border-radius: 25px;
+}
+.heading{
+    text-align: center;
+    color: #333;
+}
+table {
+    /* border:1px solid  #c4c4c4; */
+    width: 100%;
+    border-collapse: collapse;
+    margin-top: 20px;
+}
+th, td {
+    padding: 10px;
+    text-align: left;
+}
+th {
+    background-color: #f2f2f2;
+    border-bottom: 1px solid #ddd;
+}
+tr:hover {
+    background-color: #f1f1f1;
+}
+.role {
+    font-weight: bold;
+    color: #4b7deada;
+}

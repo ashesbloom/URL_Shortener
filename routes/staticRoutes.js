@@ -4,14 +4,16 @@ const router = express.Router();
 const URL = require('../models/url');
 
 router.get('/home', async(req,res)=>{
-    if(!req.user) return res.render('home',{
-        isUser: false
-    });
+    if(!req.user) return res.render('home',{role: false});
+    
+    const UserRole = await req.user.role;
+    if(UserRole === 'ADMIN') return res.redirect('/admin');
+    
     const url =  await URL.find({createdBy:req.user._id});
     res.render('home',{
        data: url,
        userName: await req.user.name,
-       isUser: true
+       role: await req.user.role
     });
 }); 
 
