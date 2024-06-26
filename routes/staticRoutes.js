@@ -7,7 +7,7 @@ router.get('/home', async(req,res)=>{
     if(!req.user) return res.render('home',{role: false});
     
     const UserRole = await req.user.role;
-    if(UserRole === 'ADMIN') return res.redirect('/admin');
+    if(UserRole === 'ADMIN') return res.redirect('/admin/');
     
     const url =  await URL.find({createdBy:req.user._id});
     res.render('home',{

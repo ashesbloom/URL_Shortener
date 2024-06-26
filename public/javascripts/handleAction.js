@@ -59,5 +59,5 @@ async function handle_Userdelete(url,email){
 }
 document.addEventListener('DOMContentLoaded', () => {
     document.getElementById('logout').addEventListener('click', () => handleLogout('/user/logout'));
-    document.getElementById('clear').addEventListener('click', () => handle_ClearData('/ashes/delete'));
+    document.getElementById('clear').addEventListener('click', () => handle_ClearData('/delete'));
 });

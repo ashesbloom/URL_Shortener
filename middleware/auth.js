@@ -3,10 +3,10 @@ const {getUser} = require('../service/auth.js');
 function Authorization(roles = []){
     return function (req,res,next){
         const token = req.cookies?.token;
-        if(!token) return res.redirect('/signin');
+        if(!token) return res.redirect('/ashes/signin');
 
         const User = getUser(token);
-        if(!User) return res.redirect('/signin');
+        if(!User) return res.redirect('/ashes/signin');
         
         req.user = User;
         if(!roles.includes(req.user.role)) return res.end('UnAuthorized'); 

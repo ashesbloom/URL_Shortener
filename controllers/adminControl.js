@@ -38,7 +38,7 @@ async function handleAdminRemoveUser(req,res){
     const isUser = await Users.findOneAndDelete({email: userMail});
     if(isUser){
         await URL.deleteMany({createdBy:isUser._id});
-        return res.json({message:'User has been deleted!',redirect: '/home'});
+        return res.json({message:'User has been deleted!',redirect: '/ashes/home'});
     }else{
         console.error('Error while deleting');
         return res.status(404).send('User does not exist'); // sending 500 Internal Server Error in case of any other error

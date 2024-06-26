@@ -3,6 +3,7 @@ body {
     font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     transition: 0.5s;
 }
+
 #headings{
     color: white;
     text-align: center;
@@ -99,6 +100,7 @@ input {
 }
 .table{
     display:flex;
+    align-self:center;
     justify-content: center;
     padding: 5px;
     margin-top: 2vh;

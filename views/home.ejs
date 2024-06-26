@@ -16,78 +16,81 @@
     <% } %>
     <hr>
     <br>
-    <form method="post", action="/ashes" id="url_input">
+    <form method="post", action="/" id="url_input">
         <lable>Enter your URL: &nbsp;</lable>
         <input type="text" placeholder="https://www.example.com" name="url">
         <button id="submit" type="submit">Shorten</button>
-        <button id="reset" type="button" onclick="window.location.href = '/home'">Reset</button>
+        <button id="reset" type="button" onclick="window.location.href = '/ashes/home'">Reset</button>
     </form>
     <% if (locals.id) { %>
         <div id="short_url">
             <span id="shorturlHeading">Shorten URL:&nbsp;</span>
-            <span id="shortenUrl"><a href="/ashes/<%= id%>" target="_blank" id="copy_text">http://localhost:8001/ashes/<%= id%></a></span>
+            <span id="shortenUrl"><a href="/<%= id%>" target="_blank" id="copy_text">http://localhost:8001/<%= id%></a></span>
             <span class="fa-regular fa-copy" id="copy" title="Copy"></span>
             <span class="msg">copied<span id="ani">!</span></span>
         </div>
     <% } %>
     <br>
     <hr>
-    <% if (locals.role) { %>
-        <button id="logout" type="submit">logout</button>
-        <button id="clear" type="submit">Clear History</button>
-        <div class="table">
-            <% if (locals.data) { %>
-                <table border="1px">
-                    <thead>
-                        <th>S.No</th>
-                        <th>ID</th>
-                        <th>Original URL</th>
-                        <th>Clicks</th>
-                    </thead>
-                    <tbody>
-                        <% data.forEach((e,index) => { %>
-                            <tr>
-                                <td><%= index+1 %></td>
-                                <td><%= e.shortId %></td>
-                                <td><%= e.redirectURL %></td>
-                                <td><%= e.visitTime.length %></td>
-                            </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-            <% } %>
-        </div>
-    <% } %>
-    <% if (locals.role === 'ADMIN') { %>
-        <h3 id="headings">User Recordes</h3>
-        <button id="allUser" type="button" onclick="window.location.href='/admin/allusers'">All Users</button>
-        <div class="table">
-            <% if (locals.allurls) { %>
-                <table border="1px">
-                    <thead>
-                        <th>S.No</th>
-                        <th>ID</th>
-                        <th>Original URL</th>
-                        <th>Created By</th>
-                        <th>Statistics</th>
-                    </thead>
-                    <tbody>
-                        <% allurls.forEach((e,index) => { %>
-                            <tr>
-                                <td><%= index+1 %></td>
-                                <td><%= e.shortId %></td>
-                                <td><%= e.redirectURL %></td>
-                                <td><%= e.createdBy %></td>
-                                <td>
-                                    <button id="open" type="submit" onclick="window.location.href = '/admin/statistics/<%= e.shortId %>'">open</button>
-                                </td>
-                            </tr>
-                        <% }) %>
-                    </tbody>
-                </table>
-            <% } %>
-        </div>
-    <% } %>
+    <br>
+    <div class="afterBody">
+        <% if (locals.role) { %>
+            <button id="logout" type="submit">logout</button>
+            <button id="clear" type="submit">Clear History</button>
+            <div class="table">
+                <% if (locals.data) { %>
+                    <table border="1px">
+                        <thead>
+                            <th>S.No</th>
+                            <th>ID</th>
+                            <th>Original URL</th>
+                            <th>Clicks</th>
+                        </thead>
+                        <tbody>
+                            <% data.forEach((e,index) => { %>
+                                <tr>
+                                    <td><%= index+1 %></td>
+                                    <td><%= e.shortId %></td>
+                                    <td><%= e.redirectURL %></td>
+                                    <td><%= e.visitTime.length %></td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } %>
+            </div>
+        <% } %>
+        <% if (locals.role === 'ADMIN') { %>
+            <h3 id="headings">User Recordes</h3>
+            <button id="allUser" type="button" onclick="window.location.href='/admin/allusers'">All Users</button>
+            <div class="table">
+                <% if (locals.allurls) { %>
+                    <table border="1px">
+                        <thead>
+                            <th>S.No</th>
+                            <th>ID</th>
+                            <th>Original URL</th>
+                            <th>Created By</th>
+                            <th>Statistics</th>
+                        </thead>
+                        <tbody>
+                            <% allurls.forEach((e,index) => { %>
+                                <tr>
+                                    <td><%= index+1 %></td>
+                                    <td><%= e.shortId %></td>
+                                    <td><%= e.redirectURL %></td>
+                                    <td><%= e.createdBy %></td>
+                                    <td>
+                                        <button id="open" type="submit" onclick="window.location.href = '/admin/statistics/<%= e.shortId %>'">open</button>
+                                    </td>
+                                </tr>
+                            <% }) %>
+                        </tbody>
+                    </table>
+                <% } %>
+            </div>
+        <% } %>
+    </div>
 </body>
 <script src="/javascripts/copyText.js"></script>
 </html>

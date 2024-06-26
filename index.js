@@ -31,10 +31,10 @@ app.use(cookieParser()); //to use the cookies
 app.use(UserAuthentication); //checking the user
 
 //routes
-app.use('/',staticRoutes); //using the static routes
+app.use('/ashes',staticRoutes); //using the static routes
 app.use('/user',userRoutes); //using the users routes
-app.use('/ashes',Authorization(['USER','ADMIN']),urlroutes); //using the url routes
 app.use('/admin',Authorization(['ADMIN']),adminRoutes); //using the admin routes 
+app.use('/',Authorization(['USER','ADMIN']),urlroutes); //using the url routes
 
 //listening to the server
 app.listen(port,()=>{console.log('\nServer started at PORT:',port)});

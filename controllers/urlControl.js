@@ -54,7 +54,7 @@ async function redirecting_to_originalURL(req,res){ // /url/:shortID
 
 async function ClearData(req,res){
     await URL.deleteMany({createdBy:req.user._id});
-    return res.json({message:'History has been cleared',redirect: '/home'});
+    return res.json({message:'History has been cleared',redirect: '/ashes/home'});
     
 }
 
