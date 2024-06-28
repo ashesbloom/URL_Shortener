@@ -18,7 +18,15 @@ const urlschema = new mongo.Schema({
         type: mongoose.Schema.Types.ObjectId,
         ref: 'users',
     },
+    expiresAt:{
+        type:Date,
+        default: () => Date.now() + 259200 * 1000,
+        index: {expires:'3d'}
+    }
 },{timestamps:true});
+
+//Creating an TTL(time to live) index to automaticlly delete urls after 3 days(259200 sec)
+
 
 //model
 const Url = mongo.model('url',urlschema);

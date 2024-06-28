@@ -5,6 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener - Sign In</title>
+    <link rel="icon" href="/assets/_226deb92-9e15-4948-99e4-a9e931bcb907.png" type="image/x-icon">
     <!-- Bootstrap CSS -->
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
     <!-- Animate.css for animations -->
@@ -79,10 +80,15 @@
                 <label for="password">Password</label>
                 <input type="password" name="password" class="form-control" placeholder="Password" required>
             </div>
+            <% if (locals.error) { %>
+                <p style="color: red; font-size: smaller; margin-left: 10px;"><%= error %></p>
+            <% } %>
             <input type="submit" class="btn btn-primary" value="Sign In">
         </form>
+        <div class="text-center mt-3">
+            <p>Don't have an account? <a onclick="window.location.href='/ashes/signup'" href="#">Sign Up</a></p>
+        </div>
     </div>
-
     <!-- Bootstrap JS and dependencies -->
     <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>

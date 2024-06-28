@@ -7,7 +7,7 @@ async function handleUsers_SighUp(req,res){
         //if a user with the same email already exists
         const existingUser = await users.findOne({ email });
         if (existingUser) {
-            return res.status(400).send('Email already in use');
+            return res.status(400).render('signup',{error:'Email already in use'});
         }
         // Create new user
         const newUser = await users.create({
@@ -27,21 +27,26 @@ async function handleUsers_SighUp(req,res){
 }
 
 async function handleUsers_SignIn(req,res){
-    const {email,password} = req.body;
-    const isUser = await users.findOne({email,password});
-    if(isUser){
-        const token = setUser(isUser);
-        res.cookie("token",token);
-        return res.redirect('/ashes/home');
-    }else{
-        return res.redirect('/ashes/signin');
+    try{
+        const {email,password} = req.body;
+        const isUser = await users.findOne({email,password});
+        if(isUser){
+            const token = setUser(isUser);
+            res.cookie("token",token);
+            return res.redirect('/ashes/home');
+        }else{
+            return res.status(404).render('signin',{error:'Invalid Credentials!'});
+        }
+    }catch(error){
+        console.error({'error while sign In':error});
+        return res.status(500).send('Internal server error');
     }
     
 }
 
 function handleUser_logout(req,res){
     res.clearCookie('token');
-    res.json({ message: 'Logged out successfully', redirect: '/ashes/signin' });
+    res.json({ message: 'Logged out successfully', redirect: '/ashes/signin'});
 }
 
 

@@ -7,7 +7,18 @@ const users = require('../models/users.js');
 //controllers
 async function GenrateShortUrl(req,res){  // /url
     const body = req.body; //getting the body from the request
-    if(!body.url) return res.status(400).json({error:'URL is required!'});  //checking if the url is present in the body
+    if(!body.url){
+        const Userurls = await URL.find({createdBy:req.user._id}); 
+        const urls = await URL.find({});
+        return res.status(400).render('home',  //checking if the url is present in the body
+        {
+            error:'URL is required!',
+            data:Userurls,
+            allurls:urls,
+            role:req.user.role,
+            userName: req.user.name
+        });  
+    }
     const shortId = shortid(); //generating a shortID
 
     await URL.create({ //filling a new entry in the database
@@ -16,10 +27,12 @@ async function GenrateShortUrl(req,res){  // /url
         createdBy: req.user._id,
         visitTime: [],
     });
-    const urls = await URL.find({createdBy:req.user._id}); 
+    const Userurls = await URL.find({createdBy:req.user._id}); 
+    const urls = await URL.find({})
     return res.render('home',{
         id: shortId, //returning the shortID
-        data:urls,
+        data:Userurls,
+        allurls:urls,
         role:req.user.role,
         userName: req.user.name
     });

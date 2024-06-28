@@ -7,7 +7,7 @@ async function handleAdmin(req,res){ // /url/admin
     const formattedData = result.map(item => ({
         shortId: item.shortId,
         redirectURL: item.redirectURL,
-        createdBy: users.find(user => user._id.toString() === item.createdBy.toString()).name,
+        createdBy: users.find(user => user._id.toString() === item.createdBy.toString())?.name,
     }));
     const urls = await URL.find({createdBy:req.user._id}); 
     return res.render('home',{
@@ -27,7 +27,7 @@ async function handleAdminClicks(req,res){ // /url/admin/:id
         Url: result.redirectURL,
         shortid:shortId,
         Totalclicks: result.visitTime.length,
-        createdBy: user.name,
+        createdBy: user?.name,
         email: user.email,
         role: user.role
     });
@@ -38,6 +38,7 @@ async function handleAdminRemoveUser(req,res){
     const isUser = await Users.findOneAndDelete({email: userMail});
     if(isUser){
         await URL.deleteMany({createdBy:isUser._id});
+        
         return res.json({message:'User has been deleted!',redirect: '/ashes/home'});
     }else{
         console.error('Error while deleting');
