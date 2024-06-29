@@ -1,16 +1,16 @@
-const shortid = require('shortid');
-const URL = require('../models/url.js');
+const shortid = require('shortid'); //importing the shortid module to generate a shortID (https://www.npmjs.com/package/shortid)
+const URL = require('../models/url.js'); //importing the URL model
 
-const users = require('../models/users.js');
 
 
 //controllers
-async function GenrateShortUrl(req,res){  // /url
+async function GenrateShortUrl(req,res){  //path: /
     const body = req.body; //getting the body from the request
-    if(!body.url){
-        const Userurls = await URL.find({createdBy:req.user._id}); 
-        const urls = await URL.find({});
-        return res.status(400).render('home',  //checking if the url is present in the body
+    if(!body.url){//checking if the url is present in the body
+        //requiring the URLs here to avoid blank page on error message (to be fiexd in future)
+        const Userurls = await URL.find({createdBy:req.user._id}); //getting all the urls created by the logged-in user
+        const urls = await URL.find({}); //getting all the urls for admin page
+        return res.status(400).render('home', //returning the home page with an error message
         {
             error:'URL is required!',
             data:Userurls,
@@ -19,18 +19,18 @@ async function GenrateShortUrl(req,res){  // /url
             userName: req.user.name
         });  
     }
-    const shortId = shortid(); //generating a shortID
+    const shortId = shortid(); //generating a shortID using the shortid module
 
-    await URL.create({ //filling a new entry in the database
-        shortId: shortId,
-        redirectURL:body.url,
-        createdBy: req.user._id,
-        visitTime: [],
+    await URL.create({ //filling a new URL entry in the database
+        shortId: shortId, //url's shortID 
+        redirectURL:body.url, //url to redirect
+        createdBy: req.user._id, //user who created the URL
+        visitTime: [], //array to store the visit time to keep record of the clicks
     });
-    const Userurls = await URL.find({createdBy:req.user._id}); 
-    const urls = await URL.find({})
-    return res.render('home',{
-        id: shortId, //returning the shortID
+    const Userurls = await URL.find({createdBy:req.user._id}); //getting all the urls created by the logged-in user
+    const urls = await URL.find({}) //getting all the urls for admin page
+    return res.render('home',{ 
+        id: shortId,            //returning the home page with the shortID and other data
         data:Userurls,
         allurls:urls,
         role:req.user.role,
@@ -38,16 +38,16 @@ async function GenrateShortUrl(req,res){  // /url
     });
 }
 
-async function redirecting_to_originalURL(req,res){ // /url/:shortID
+async function redirecting_to_originalURL(req,res){ //path: /:shortID
     const urlshortId = req.params.shortID; //getting the shortID from the URL
-    const entry = await URL.findOneAndUpdate(
+    const entry = await URL.findOneAndUpdate( //updating the visitTime array with the current timestamp
         {
-            shortId: urlshortId //searching for the shortID in the database
+            shortId: urlshortId //searching for the shortID in the database (finding argument)
         },
         {
-            $push:{
-                visitTime:{
-                    timestamp: Date.now() //pushing the current timestamp in the visitTime array
+            $push:{ 
+                visitTime:{ //(updating argument)
+                    timestamp: Date.now() //pushing the current timestamp in the visitTime array 
                 },
             },
         }
@@ -56,22 +56,22 @@ async function redirecting_to_originalURL(req,res){ // /url/:shortID
     if (!entry) {
         return res.status(404).send('URL not found'); // sending 404 Not Found if entry is null
     }
-    // Redirect to the original URL
     try{
-        return res.redirect(entry.redirectURL);
+        return res.redirect(entry.redirectURL); //redirecting to the original URL
     }catch (error) {
         console.error('Error while redirecting:', error);
-        return res.status(500).send('Internal Server Error'); // sending 500 Internal Server Error in case of any other error
+        return res.status(500).send('Internal Server Error'); // sending Internal Server Error in case of any other error
     }
 }
 
-async function ClearData(req,res){
-    await URL.deleteMany({createdBy:req.user._id});
-    return res.json({message:'History has been cleared',redirect: '/ashes/home'});
+async function ClearData(req,res){ //path: /delete
+    await URL.deleteMany({createdBy:req.user._id}); //deleting all the URLs created by the user
+    return res.json({message:'History has been cleared',redirect: '/ashes/home'}); //redirecting to the homepage
     
 }
 
-module.exports = { //exporting the controllers
+//exporting the functions
+module.exports = { 
     GenrateShortUrl,
     redirecting_to_originalURL,
     ClearData

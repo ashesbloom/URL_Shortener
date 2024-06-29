@@ -1,15 +1,20 @@
 const express = require('express');
 const app = express();
-const path = require('path'); //to navigate the ejs files
+
+const path = require('path'); //to navigate the ejs files we need path module
 const port = 8001; 
-const URL = require('./models/url.js'); //importing the URL model
+
+//Importing the routes
 const urlroutes = require('./routes/urlRoutes.js');
 const staticRoutes = require('./routes/staticRoutes.js');
 const userRoutes = require('./routes/usersRoutes.js');
 const adminRoutes = require('./routes/AdminRoutes.js');
-const { connectDatabase } = require('./connection.js'); 
-const {UserAuthentication,Authorization} = require('./middleware/auth.js');
-const cookieParser = require('cookie-parser'); //to use the cookies
+
+const { connectDatabase } = require('./connection.js'); //Importing the connection file
+
+const {UserAuthentication,Authorization} = require('./middleware/auth.js'); //Importing custom middlewares
+
+const cookieParser = require('cookie-parser'); //to extract and convert the cookies into object
 
 
 connectDatabase('mongodb://localhost:27017/url-shortner') //connecting to the database
@@ -24,17 +29,17 @@ app.set("views",path.resolve('./views'));
 //to use the static files in the public folder
 app.use(express.static(path.resolve('./public'))); 
 
-//middleware
+//middlewares
 app.use(express.json());  //to create a object on json post request
 app.use(express.urlencoded({extended:false})); //to create a object on form input in html
-app.use(cookieParser()); //to use the cookies
+app.use(cookieParser()); //to extract and convert the cookies into object
 app.use(UserAuthentication); //checking the user
 
 //routes
-app.use('/ashes',staticRoutes); //using the static routes
-app.use('/user',userRoutes); //using the users routes
-app.use('/admin',Authorization(['ADMIN']),adminRoutes); //using the admin routes 
-app.use('/',Authorization(['USER','ADMIN']),urlroutes); //using the url routes
+app.use('/ashes',staticRoutes); //Frontend routes
+app.use('/user',userRoutes); //User handling routes (signup,login,logout)
+app.use('/admin',Authorization(['ADMIN']),adminRoutes); //Admin handlingroutes (delete,view all urls,view all users)
+app.use('/',Authorization(['USER','ADMIN']),urlroutes); //URL handling routes (shorten,redirecting,delete)
 
 //listening to the server
 app.listen(port,()=>{console.log('\nServer started at PORT:',port)});
