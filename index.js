@@ -1,3 +1,5 @@
+//landing page: http://localhost:8001/ashes/home
+
 const express = require('express');
 const app = express();
 
