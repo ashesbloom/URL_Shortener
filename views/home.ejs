@@ -4,28 +4,32 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener</title>
-    <link rel="icon" href="/assets/_226deb92-9e15-4948-99e4-a9e931bcb907.png" type="image/x-icon">
+    <link rel="icon" href="/assets/_226deb92-9e15-4948-99e4-a9e931bcb907.png" type="image/x-icon"> <!-- favicon -->
     <script src="https://kit.fontawesome.com/6a0ad01ab5.js" crossorigin="anonymous"></script>
     <link rel="stylesheet" href="/stylesheets/homeStyle.css">
     <script src="/javascripts/handleAction.js"></script>
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- sweetalert -->
 </head>
 <body>
     <h1 id="headings">URL Shortener</h1>
+    <!-- username -->
     <% if (locals.role) { %>
         <h1 id="headings"><%= userName %></h1>
     <% } %>
     <hr>
     <br>
+    <!-- form for url genration -->
     <form method="post", action="/" id="url_input">
         <lable>Enter your URL: &nbsp;</lable>
         <input type="text" placeholder="https://www.example.com" name="url">
         <button id="submit" type="submit">Shorten</button>
         <button id="reset" type="button" onclick="window.location.href = '/ashes/home'">Reset</button>
+        <!-- in case url field is empty -->
         <% if (locals.error) { %>
             <p style="color: red; font-size: smaller; margin-right:20%;"><%= error %></p>
         <% } %>
     </form>
+    <!-- genrated short url -->
     <% if (locals.id) { %>
         <div id="short_url">
             <span id="shorturlHeading">Shorten URL:&nbsp;</span>
@@ -37,6 +41,7 @@
     <br>
     <hr>
     <br>
+    <!-- if the user is a guest -->
     <% if (!locals.role) { %>
         <center>
             <div class="visit_login">
@@ -45,11 +50,13 @@
             </div>
         </center>
     <% } %>
+    <!-- if the user is logged in -->
     <div class="afterBody">
         <% if (locals.role) { %>
-            <button id="logout" type="submit">logout</button>
-            <button id="clear" type="submit">Clear History</button>
+            <button id="logout" type="submit">logout</button> <!-- logout button -->
+            <button id="clear" type="submit">Clear History</button> <!-- clear history button -->
             <div class="table">
+                <!-- user's history -->
                 <% if (locals.data) { %>
                     <table border="1px">
                         <thead>
@@ -62,8 +69,8 @@
                             <% data.forEach((e,index) => { %>
                                 <tr>
                                     <td><%= index+1 %></td>
-                                    <td><a href="/<%= e.shortId%>" target="_blank" style="color: rgb(125, 202, 205);">
-                                        <%= e.shortId %></a></td>
+                                    <td><a href="/<%= e.shortId%>" target="_blank" style="color: rgb(125, 202, 205); text-decoration: none;">
+                                        <%= e.shortId %></a></td> <!-- link to short url -->
                                     <td><%= e.redirectURL %></td>
                                     <td><%= e.visitTime.length %></td>
                                 </tr>
@@ -73,10 +80,13 @@
                 <% } %>
             </div>
         <% } %>
+        <!-- if the user is admin -->
         <% if (locals.role === 'ADMIN') { %>
-            <h2 id="headings">User Recordes</h2>
-            <button id="allUser" type="button" onclick="window.location.href='/admin/allusers'">All Users</button>
+            <h2 id="headings">User Recordes</h2>  
+            <!-- redirect to all user page -->
+            <button id="allUser" type="button" onclick="window.location.href='/admin/allusers'">All Users</button> 
             <div class="table">
+                <!-- all user's history -->
                 <% if (locals.allurls) { %>
                     <table border="1px">
                         <thead>
@@ -90,13 +100,13 @@
                             <% allurls.forEach((e,index) => { %>
                                 <tr>
                                     <td><%= index+1 %></td>
-                                    <td><a href="/<%= e.shortId%>" target="_blank" style="color: rgb(125, 202, 205);">
-                                        <%= e.shortId %></td>
+                                    <td><a href="/<%= e.shortId%>" target="_blank" style="color: rgb(125, 202, 205); text-decoration: none;">
+                                        <%= e.shortId %></td> <!-- link to short url -->
                                     <td><%= e.redirectURL %></td>
                                     <td><%= e.createdBy %></td>
                                     <td>
                                         <button id="open" type="submit" onclick="window.location.href = '/admin/statistics/<%= e.shortId %>'">
-                                            open</button>
+                                            open</button> <!-- open statistics button -->
                                     </td>
                                 </tr>
                             <% }) %>

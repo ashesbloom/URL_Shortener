@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>URL Shortener - Admin</title>
-    <link rel="icon" href="/assets/_226deb92-9e15-4948-99e4-a9e931bcb907.png" type="image/x-icon">
+    <link rel="icon" href="/assets/_226deb92-9e15-4948-99e4-a9e931bcb907.png" type="image/x-icon"> <!-- favicon -->
     <link rel="stylesheet" href="/styles/admin.css">
     <link rel="stylesheet" href="/stylesheets/adminStyle.css">
-    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script>
-    <script src="/javascripts/handleAction.js"></script>
+    <script src="https://unpkg.com/sweetalert/dist/sweetalert.min.js"></script> <!-- sweetalert -->
+    <script src="/javascripts/handleAction.js"></script> 
 </head>
 <body class="bodyOfUser">
     <div class="container_users">
@@ -24,12 +24,14 @@
                 </tr>
             </thead>
             <tbody>
+                <!-- user's data -->
                 <% formattedData.forEach(user => { %>
                     <tr>
                         <td><%= user.userName %></td>
                         <td><%= user.email %></td>
                         <td class="role"><%= user.role %></td>
                         <td><%= user.createdAt %></td>
+                        <!-- to delete user from database -->
                         <td><button id="delete" type="button" onclick="handle_Userdelete('/admin/delete','<%= user.email %>')">Delete User</button></td>
                     </tr>
                 <% }) %>
