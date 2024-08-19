@@ -1,95 +1,73 @@
-# URL Shortener
+# URL Shortener 🌐
 
-This project is a URL shortener that generates random short IDs for provided URLs and facilitates user access to the original URL using the short ID. It also offers administrative features to track clicks and view statistics.
+A web application that shortens long URLs into compact, easy-to-share links. This project includes user authentication, click tracking, and an admin portal for managing statistics and user roles.
 
-### Features
+## ✨ Features
 
-* Uses `shortid` to generate random IDs for shortened URLs.
-* Provides endpoints for URL shortening, redirection, and administrative functions.
-* Tracks clicks and delivers statistics for each shortened URL.
+- ✂️ URL shortening
+- 🛠️ Custom short URL creation
+- 📊 Click tracking for each shortened URL
+- 🔐 User authentication and role management
+- ⚙️ Admin portal for statistics and user management
+- 🕒 3-day history retention for URL clicks
+- 🗑️ Ability to clear history (for users and admins)
+- 🧹 Admin capability to delete any entry
 
-### Endpoints
+## 🛠️ Technologies Used
 
-* **POST /url:** Generates a shortened URL for a valid URL submitted in the request body.
-* **GET /:id:** Redirects to the original URL using the provided short URL ID.
-* **GET /url/admin/:id:** Returns the number of clicks for a specific shortened URL.
-* **GET /url/admin:** Returns all shortened URLs along with their corresponding redirect URLs and total click counts.
+- Node.js
+- Express.js
+- MongoDB Atlas
+- EJS (Embedded JavaScript templating)
+- JavaScript
+- CSS
+- JWT for authentication
 
-### Usage
-
-**1. Installation**
-
-Ensure you have Node.js and npm installed on your system.
-
-- Clone this repository:
-
-```bash
-git clone https://github.com/ashesbloom/URL_Shortener.git
-```
-
-- Navigate to the project directory:
-
-```bash
-cd URL_Shortener
-```
-
-- Install dependencies:
-  
-```bash
-npm install
-```
-**express package:**
-```bash
-npm i express
-```
-**mongoose:**
-```bash
-npm i mongoose
-```
-**shortid package:**
-```bash
-npm i shortid
-```
-
-**2. Running the Server**
-
-```bash
-npm start
-```
-
-This starts the server on the default port (usually 3000) but 8000 in this case.
-
-## 3. Example Usage
-
-**Shorten a URL**
-
-- Send a POST request to `/url` with the valid URL in the request body:
+## 📦 Dependencies
 
 ```json
 {
-  "url": "https://example.com/very-long-url-path"
+  "dependencies": {
+    "cookie-parser": "^1.4.6",
+    "dotenv": "^16.4.5",
+    "ejs": "^3.1.10",
+    "express": "^4.19.2",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.0",
+    "nodemon": "^3.1.0",
+    "shortid": "^2.2.16",
+    "sweetalert": "^2.1.2"
+  }
 }
 ```
 
-- The response will contain the shortened URL:
+## 🚀 Installation
 
-```json
-{
-  "shortUrl": "https://short.url/abc123"
-}
-```
+1. Clone the repository.
+2. Run `npm install` to install dependencies.
+3. Set up your MongoDB Atlas cluster and add the connection string to your `.env` file.
+4. Run `npm start` to start the server.
 
-**Redirect**
+## 💡 Usage
 
-- Access the shortened URL (e.g., `https://short.url/abc123`) in your browser and get redirected to the original URL.
+1. Navigate to the homepage.
+2. Enter a long URL in the input field.
+3. Click "Shorten" to generate a short URL.
+4. Copy and share the shortened URL.
 
-**Admin Dashboard**
+## 🔧 Admin Portal
 
-- Access the admin dashboard at `/url/admin` to view all shortened URLs with their statistics (requires admin authorization).
+Access the admin portal to:
 
-### Dependencies
+- View overall statistics.
+- Manage user roles.
+- View and delete individual URL entries.
+- Clear history for all users.
 
-* Node.js
-* Express.js
-* shortid
-* Mongoose
+## ⚠️ Disclaimer
+
+The length of the shortened URL ID may vary depending on the domain being used. While we aim for 8-character IDs, the actual length might be different to ensure uniqueness across the system.
+
+## 🤝 Contributing
+
+Pull requests are welcome. For major changes, please open an issue first to discuss what you would like to change.
