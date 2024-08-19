@@ -1,10 +1,11 @@
-//landing page: http://localhost:8001/ashes/home
+//landing page: /ashes/home
 
+require('dotenv').config();
 const express = require('express');
 const app = express();
 
 const path = require('path'); //to navigate the ejs files we need path module
-const port = 8001; 
+const port = process.env.PORT || 8001; 
 
 //Importing the routes
 const urlroutes = require('./routes/urlRoutes.js');
@@ -19,7 +20,7 @@ const {UserAuthentication,Authorization} = require('./middleware/auth.js'); //Im
 const cookieParser = require('cookie-parser'); //to extract and convert the cookies into object
 
 
-connectDatabase('mongodb://localhost:27017/url-shortner') //connecting to the database
+connectDatabase(process.env.MONGO_URI) //connecting to the database
     .catch((err)=>{console.log(err)})    
     .then(()=>console.log('Database Connected')
 );
